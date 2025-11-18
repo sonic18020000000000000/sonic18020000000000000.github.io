@@ -1,7 +1,6 @@
 export default [
 { href: './html/Buckshot Roulette/index.html', imgSrc: 'buckshot roulette.jpeg', name: 'Buckshot Roulette' , 'page': 5, 'id': 763 },
 { href: './html/Killer/index.html', imgSrc: 'Killer.jpg', name: 'Killer' , 'page': 5, 'id': 901 },
-{ href: './html/Jelly Bots/index.html', imgSrc: 'jelly bots.jpeg', name: 'Jelly Bots' , 'page': 5, 'id': 891 },
 { href: './html/Indian truck simulator/index.html', imgSrc: 'indian truck simulator.jpeg', name: 'Indian truck simulator' , 'page': 5, 'id': 879 },
 { href: './html/Hollow knight degraded/index.html', imgSrc: 'hollow knight degraded.jpeg', name: 'Hollow knight degraded' , 'page': 5, 'id': 874 },
 { href: './html/Hasty shaman/index.html', imgSrc: 'hasty shaman.jpeg', name: 'Hasty shaman' , 'page': 5, 'id': 867 },
