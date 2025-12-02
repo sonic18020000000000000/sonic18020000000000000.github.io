@@ -1462,6 +1462,26 @@
 						Reset Favicon
 					</button>
 				</div>
+				<div class="custom-option" style="margin-bottom: 10px">
+					<p style="color: #fff; display: block; margin-bottom: 5px;">Panic Key</p>
+					<input
+					type="text"
+					id="panicKeysBox"
+					style="width: 100%; padding: 5px"
+					value=""
+					disabled
+				/>
+					<button id="startRecording">Start recording</button>
+				</div>
+				<div class="custom-option" style="margin-bottom: 10px">
+					<p style="color: #fff; display: block; margin-bottom: 5px;">Panic Key Redirect</p>
+					<input
+					type="text"
+					id="panicKeyRedirectBox"
+					style="width: 100%; padding: 5px"
+					value="https://canvas.com/"
+				/>
+				</div>
 			</div>
 		</div>
 		<div class="overlay" id="favoverlay"></div>
@@ -1471,6 +1491,63 @@
 				<button id="favoritesOkButton">OK</button>
 			</div>
 		</div>
+		<script>
+			const panicRedirectBox = document.getElementById('panicKeyRedirectBox')
+			let panicUrl = ''
+			const panicUrlFromStorage = localStorage.getItem('panicRedirect')
+
+			if (panicUrlFromStorage) {
+				panicUrl = localStorage.getItem('panicRedirect')
+				panicRedirectBox.value = panicUrl
+			}
+
+			panicRedirectBox.addEventListener('blur', function() {
+				panicUrl = panicRedirectBox.value
+				localStorage.setItem('panicRedirect', panicUrl)
+			})
+		</script>
+		<script>
+			const startButton = document.getElementById('startRecording')
+			const panicBox = document.getElementById('panicKeysBox')
+			let recording = false
+			let panicKeys = []
+			panicBox.value = ''
+			let panicKeysFromStorage = localStorage.getItem('panicKeys')
+
+			if (panicKeysFromStorage) {
+				panicKeys = JSON.parse(panicKeysFromStorage)
+				renderKeys()
+			}
+			startButton.addEventListener("click", function(){
+				recording = true
+				panicBox.value = ''
+				panicKeys.length = 0
+			})
+			document.addEventListener("keyup", function(){
+				if (recording) {
+					renderKeys()
+					localStorage.setItem('panicKeys', JSON.stringify(panicKeys))
+					recording = false
+				}
+			})
+			document.addEventListener('keydown', function(e){
+				if(recording) {
+					if (e.key != panicKeys[panicKeys.length-1]){
+						panicKeys.push(e.key)
+					}
+				}
+			})
+			function renderKeys() {
+				panicBox.value = ''
+				for (let i = 0; i < panicKeys.length; i++) {
+					if (i != panicKeys.length-1) {
+						panicBox.value += panicKeys[i] + " + "
+					} else {
+						panicBox.value += panicKeys[i]
+					}
+				}
+			}
+		</script>
 		<script>
 			const altLinksEl = document.getElementById("alternate-links-container"),
 				altLinksKeyEl = document.getElementById("alternate-links-key"),
@@ -2180,5 +2257,6 @@
 				});
 			});
 		</script>
+		<script src="./js/panicButton.js"></script>
 	</body>
 </html>
